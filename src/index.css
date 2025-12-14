@@ -4,6 +4,9 @@
 
 :root {
     --glass-blur: 10rem;
+    --text-shadow1: 0;
+    /* --text-shadow1: -1px -1px 0 #000,1px -1px 0 #000,-1px  1px 0 #000,1px  1px 0 #000; */
+
 }
 
 .cause,#root {
@@ -11,11 +14,7 @@
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
-   text-shadow:
-    -1px -1px 0 #000,
-     1px -1px 0 #000,
-    -1px  1px 0 #000,
-     1px  1px 0 #000;
+   text-shadow: var(--text-shadow1)
 }
 
 
@@ -177,6 +176,11 @@
     
 }
 
+
+.ant-switch-checked {
+        background: rgba(214, 138, 138, 0.8) !important;
+}
+
 /* Responsive styles */
 @media (max-width: 1280px) {
     .bg-img {
@@ -217,4 +221,6 @@
     .ant-picker-dropdown .ant-picker-footer p {
         font-size: 11px !important;
     }
+
+
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { DatePicker, Divider, message, Slider } from 'antd';
+import { DatePicker, Divider, message, Slider, Switch } from 'antd';
 import { ClockCircleOutlined, DashboardOutlined, DeleteOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
@@ -30,6 +30,7 @@ function App() {
   const [clock, setClock] = useState('')
   const [messageApi, contextHolder] = message.useMessage();
   const [showOpacitySlider, setShowOpacitySlider] = useState(false);
+  const [textLine, setTextLine] = useState(false);
   const [opacityValue, setOpacityValue] = useState(50);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showMusicSetting, setShowMusicSetting] = useState(false);
@@ -47,7 +48,6 @@ function App() {
         countDown: null,
       }))
       setInputValue('');
-      console.log(Date.now());
     }
   }
 
@@ -110,12 +110,17 @@ function App() {
     const bgDiv = document.querySelector('.bg-img');
     const bgImage = window.getComputedStyle(bgDiv).backgroundImage.match(/\d+/g);
     let number = Number.parseInt(bgImage[bgImage.length - 1]);
-    console.log(number);
     if (number == 3) number = 1;
     else number += 1;
     bgDiv.style.backgroundImage = `url('/${number}.jpg')`;
   }
 
+  const toggleTextline = (value) => {
+    if (value === true)
+      document.documentElement.style.setProperty('--text-shadow1', '-1px -1px 0 #000,1px -1px 0 #000,-1px  1px 0 #000,1px  1px 0 #000');
+    else
+      document.documentElement.style.setProperty('--text-shadow1', '0');
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -273,7 +278,7 @@ function App() {
                         disabledDate={disabledDate}
                         disabledTime={disabledTime}
                         onChange={(timeString) => {
-                          updateCountDown(task.id, timeString);
+                          updateCountDown(task.id, timeString.format('YYYY-MM-DD HH:mm:ss'));
                           setShowTimePicker(false);
                         }}
                         renderExtraFooter={() => <div className='flex justify-around items-center h-10'>
@@ -376,17 +381,34 @@ function App() {
         <div
           className='absolute left-10 top-10 glass-border text-white p-4 hover:cursor-not-allowed select-none text-3xl max-[900px]:hidden'
           title='Time doesnt comeback but we can comeback to they:)'>
-          <ClockCircleOutlined />  {clock}
+          <ClockCircleOutlined />
+          {clock}
         </div>
 
         {/* Slider at the right conner */}
-        <div className="absolute top-30 right-10 glass-border text-white text-center p-4 max-[900px]:hidden">
+        <div className="absolute top-30 right-10 glass-border text-white  p-4 max-[900px]:hidden">
           <span onClick={() => setShowOpacitySlider(true)} className={`${showOpacitySlider ? 'mr-4' : 'cursor-pointer'} `}>Glass opacity</span>
           <span onClick={() => setShowOpacitySlider(false)} className={`${showOpacitySlider ? 'cursor-pointer' : 'hidden'}`} >X</span>
           {showOpacitySlider && (
-            <div>
-              <Slider horizontal min={30} value={opacityValue} onChange={(value) => setOpacityValue(value)} />
-            </div>
+            <>
+              <div>
+                <Slider horizontal min={30} value={opacityValue} onChange={(value) => setOpacityValue(value)} />
+              </div>
+              <div className='flex gap-1 text-center items-center'>
+                <p>Text line</p>
+                <Switch
+                  checked={textLine}
+                  size="small"
+                  checkedChildren="on"
+                  unCheckedChildren="off"
+                  onChange={(e) => {
+                    console.log(e)
+                    toggleTextline(e);
+                    setTextLine(e)
+                  }}
+                />
+              </div>
+            </>
           )}
         </div>
 
