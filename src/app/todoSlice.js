@@ -4,7 +4,7 @@ import { act } from "react";
 const todoSlice = createSlice({
     name: 'todoList',
     initialState: [
-        { id: 0, text: 'Save the city', completed: true },
+        { id: 1, text: 'Save the city', completed: true },
     ], reducers: {
         addMission: (state, action) => {
             state.push(action.payload)
