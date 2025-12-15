@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { DatePicker, Divider, message, Popconfirm, Slider, Switch, Tooltip } from 'antd';
-import { ClockCircleFilled, ClockCircleOutlined, ClockCircleTwoTone, DashboardFilled, DashboardOutlined, DashboardTwoTone, DeleteFilled, DeleteOutlined, DeleteTwoTone, MinusCircleFilled, MinusCircleOutlined, MinusCircleTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
+import { ClockCircleFilled, ClockCircleOutlined, ClockCircleTwoTone, DashboardFilled, DashboardOutlined, DashboardTwoTone, DeleteFilled, DeleteOutlined, DeleteTwoTone, GithubFilled, GithubOutlined, MinusCircleFilled, MinusCircleOutlined, MinusCircleTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -253,7 +253,7 @@ function App() {
         Change to PC or laptop for better experience
       </p>
 
-      <div className=" w-screen h-screen bg-img flex relative animate-fade-in">
+      <div className="w-screen h-screen bg-img flex relative animate-fade-in">
         {/* Black overlay for smooth transition */}
         <div className="bg-overlay absolute inset-0 bg-black pointer-events-none" style={{ opacity: 0, transition: 'opacity 0.6s ease-in-out' }}></div>
 
@@ -642,7 +642,19 @@ function App() {
             </>
           )}
         </div>
-
+        <Tooltip title="Open my repo">
+          <div className=' absolute md:left-3 md:bottom-3 max-md:top-0 max-md:right-0 z-50'>
+            <button className='bg-[#d68a8a] size-7 border-0 rounded-full hover:cursor-pointer'
+              onClick={() => {
+                window.open("https://github.com/CDinhh/Supper-To-Do-List", "_blank");
+              }}
+            >
+              <GithubFilled
+                style={{ color: 'white' }}
+              />
+            </button>
+          </div>
+        </Tooltip>
 
       </div >
     </>
